@@ -1,4 +1,4 @@
-name: 每日股票分析
+name: 每日股票分析-DY
 
 on:
   # 定时触发 - 每天北京时间 18:00 (UTC 10:00)
@@ -26,6 +26,7 @@ concurrency:
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    environment: dy
     # 添加超时限制，防止任务卡死
     timeout-minutes: 30
     
@@ -107,6 +108,7 @@ jobs:
           
           # 方式六：PushPlus ⬅️ 新增！
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          PUSHPLUS_TO_TOKEN: ${{ secrets.PUSHPLUS_TO_TOKEN }}
           
           # 方式七：自定义 Webhook（钉钉、Bark、自建服务等）
           CUSTOM_WEBHOOK_URLS: ${{ secrets.CUSTOM_WEBHOOK_URLS }}

@@ -176,6 +176,7 @@ class NotificationService:
 
         # PushPlus 配置
         self._pushplus_token = getattr(config, 'pushplus_token', None)
+        self._pushplus_to_token = getattr(config, 'pushplus_to_token', None)
        
         # Server酱3 配置
         self._serverchan3_sendkey = getattr(config, 'serverchan3_sendkey', None)
@@ -2911,6 +2912,7 @@ class NotificationService:
         try:
             payload = {
                 "token": self._pushplus_token,
+                "to": self._pushplus_to_token,
                 "title": title,
                 "content": content,
                 "template": "markdown"  # 使用 Markdown 格式
