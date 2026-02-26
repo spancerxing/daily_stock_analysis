@@ -176,8 +176,9 @@ class NotificationService:
 
         # PushPlus 配置
         self._pushplus_token = getattr(config, 'pushplus_token', None)
+        self._pushplus_topic = getattr(config, 'pushplus_topic', None)
         self._pushplus_to_token = getattr(config, 'pushplus_to_token', None)
-       
+
         # Server酱3 配置
         self._serverchan3_sendkey = getattr(config, 'serverchan3_sendkey', None)
 
@@ -2917,6 +2918,10 @@ class NotificationService:
                 "content": content,
                 "template": "markdown"  # 使用 Markdown 格式
             }
+
+            # 群组推送（配置了 PUSHPLUS_TOPIC 时推给群组所有人）
+            if self._pushplus_topic:
+                payload["topic"] = self._pushplus_topic
 
             response = requests.post(api_url, json=payload, timeout=10)
 
