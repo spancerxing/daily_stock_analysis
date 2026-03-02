@@ -27,6 +27,7 @@ class PushplusSender:
         """
         self._pushplus_token = getattr(config, 'pushplus_token', None)
         self._pushplus_topic = getattr(config, 'pushplus_topic', None)
+        self._pushplus_to_token = getattr(config, 'pushplus_to_token', None)
         
     def send_to_pushplus(self, content: str, title: Optional[str] = None) -> bool:
         """
@@ -76,6 +77,10 @@ class PushplusSender:
             # 群组推送（配置了 PUSHPLUS_TOPIC 时推给群组所有人）
             if self._pushplus_topic:
                 payload["topic"] = self._pushplus_topic
+
+            # 好友推送
+            if self._pushplus_to_token:
+                payload["to"] = self._pushplus_to_token
 
             response = requests.post(api_url, json=payload, timeout=10)
 
